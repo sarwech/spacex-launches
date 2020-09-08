@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Row } from 'antd'
+import Rockets from './Rockets'
 
 export interface HomeProps {}
 
 const Home: React.SFC<HomeProps> = () => {
-	const [topRocket, setTopRocket] = useState('')
-
 	return (
 		<>
-			<h1>Home</h1>
+			<Row>
+				<h1>Home</h1>
+			</Row>
+			<Row>
+				<Rockets />
+			</Row>
 		</>
 	)
 }

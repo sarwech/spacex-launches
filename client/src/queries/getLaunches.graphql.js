@@ -5,7 +5,13 @@ export const GET_ALL_LAUNCHES = gql`
 		launches {
 			flight_number
 			mission_name
-			rocket
+			rocket {
+				rocket_id
+				rocket_name
+				rocket_type
+			}
+			details
+			launch_date_utc
 		}
 	}
 `
