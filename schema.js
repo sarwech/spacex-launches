@@ -3,7 +3,10 @@ const {
 	GraphQLInt,
 	GraphQLString,
 	GraphQLBoolean,
+	GraphQLList,
+	GraphQLSchema,
 } = require('graphql')
+const axios = require('axios')
 
 // Types
 
@@ -14,9 +17,9 @@ const LaunchType = new GraphQLObjectType({
 	fields: () => ({
 		flight_number: { type: GraphQLInt },
 		mission_name: { type: GraphQLString },
-		launch_year: { type: GraphQLString },
 		launch_date_local: { type: GraphQLString },
-		launch_success: { type: GraphqlBoolean },
+		launch_success: { type: GraphQLBoolean },
+		launch_year: { type: GraphQLString },
 		rocket: { type: RocketType },
 	}),
 })
@@ -26,7 +29,7 @@ const LaunchType = new GraphQLObjectType({
 const RocketType = new GraphQLObjectType({
 	name: 'Rocket',
 	fields: () => ({
-		id: { type: GraphQLString },
+		rocket_id: { type: GraphQLString },
 		rocket_name: { type: GraphQLString },
 		rocket_type: { type: GraphQLString },
 	}),
@@ -41,4 +44,62 @@ const PayloadType = new GraphQLObjectType({
 		customer: { type: GraphQLString },
 		nationality: { type: GraphQLString },
 	}),
+})
+
+const RootQuery = new GraphQLObjectType({
+	name: 'RootQueryType',
+	fields: {
+		launches: {
+			type: new GraphQLList(LaunchType),
+			resolve(parent, args) {
+				return axios
+					.get('https://api.spacexdata.com/v3/launches')
+					.then((data) => data.data)
+			},
+		},
+		launch: {
+			type: LaunchType,
+			args: {
+				flight_number: {
+					type: GraphQLInt,
+				},
+			},
+			resolve(parent, args) {
+				return axios
+					.get(`https://api.spacexdata.com/v3/launches/${args.flight_number}`)
+					.then((data) => data.data)
+			},
+		},
+		rockets: {
+			type: new GraphQLList(RocketType),
+			resolve(parent, args) {
+				return axios
+					.get('https://api.spacexdata.com/v3/rockets')
+					.then((data) => data.data)
+			},
+		},
+		rocket: {
+			type: RocketType,
+			args: {
+				id: {
+					type: GraphQLInt,
+				},
+			},
+			resolve(parent, args) {
+				return axios
+					.get(`https://api.spacexdata.com/v3/rockets/${args.id}`)
+					.then((data) => data.data)
+			},
+		},
+		rockets: {
+			type: new GraphQLList(RocketType),
+		},
+		payloads: {
+			type: new GraphQLList(PayloadType),
+		},
+	},
+})
+
+module.exports = new GraphQLSchema({
+	query: RootQuery,
 })
