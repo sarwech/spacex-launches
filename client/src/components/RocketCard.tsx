@@ -3,6 +3,7 @@ import { Col, Card } from 'antd'
 import { StarOutlined } from '@ant-design/icons'
 import { rocketImages } from '../rocketImages'
 import { Rocket } from '../Types'
+import { StyledRocketCard } from '../Styles'
 
 export interface RocketCardProps {
 	rocket: Rocket
@@ -26,14 +27,13 @@ const RocketCard: React.SFC<RocketCardProps> = ({
 
 	return (
 		<Col>
-			<Card
-				style={{ width: 300, height: 500 }}
+			<StyledRocketCard
 				cover={
 					<img
 						alt='example'
 						src={rocketImages[rocket_id]}
-						height={200}
-						style={{ objectFit: 'contain' }}
+						width={200}
+						style={{ minHeight: 250, maxHeight: 250, objectFit: 'contain' }}
 					/>
 				}
 				actions={[
@@ -43,12 +43,17 @@ const RocketCard: React.SFC<RocketCardProps> = ({
 						onClick={() => setTopRocket(rocket_id)}
 					/>,
 				]}
-				loading={loading}>
+				loading={loading}
+				selected={topRocket === rocket_id ? true : false}>
 				<Meta
 					title={rocket && rocket.rocket_name}
-					description={rocket && rocket.description}
+					description={
+						rocket && rocket.description.length > 150
+							? `${rocket.description.substring(0, 150)}...`
+							: rocket.description
+					}
 				/>
-			</Card>
+			</StyledRocketCard>
 		</Col>
 	)
 }
