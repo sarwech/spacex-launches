@@ -11,6 +11,7 @@ const BarChart: React.SFC<BarChartProps> = ({ launches }) => {
 	const sortedDates = launches.sort((a: Launch, b: Launch) => {
 		return Date.parse(a.launch_date_utc) > Date.parse(b.launch_date_utc)
 	})
+
 	const dateRange = [
 		parseInt(format(new Date(sortedDates[0].launch_date_utc), 'yyyy')),
 		parseInt(
@@ -21,7 +22,6 @@ const BarChart: React.SFC<BarChartProps> = ({ launches }) => {
 		),
 	]
 
-	console.log(dateRange)
 	const getValues = () => {
 		let launchCount = []
 		for (let i = dateRange[0]; i < dateRange[1]; i++) {

@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-apollo'
-import { Row, List, Avatar } from 'antd'
-import TimeAgo from 'react-timeago'
-import { Line } from 'react-chartjs-2'
+import { Row, Typography } from 'antd'
 import { GET_ALL_LAUNCHES } from '../queries/getLaunches.graphql'
-import { rocketImages } from '../rocketImages'
-import { Launch } from '../Types'
+
 import BarChart from './BarChart'
+import LaunchList from './LaunchList'
 
 export interface LaunchesProps {}
 
+const { Title } = Typography
+
 const Launches: React.SFC<LaunchesProps> = () => {
 	const { loading, error, data } = useQuery(GET_ALL_LAUNCHES)
+	const [sortBy, setSortBy] = useState('desc')
 
 	if (loading) {
 		return <p>Loading...</p>
@@ -24,26 +25,12 @@ const Launches: React.SFC<LaunchesProps> = () => {
 	return (
 		<>
 			<Row>
-				<h1>Launches</h1>
+				<Title level={3}>Launches</Title>
 			</Row>
-			{console.log(data && data)}
 			<Row>
 				<BarChart launches={data.launches} />
 			</Row>
-			<List
-				itemLayout='horizontal'
-				dataSource={data.launches}
-				renderItem={(launch: Launch) => (
-					<List.Item>
-						<List.Item.Meta
-							avatar={<Avatar src={rocketImages[launch.rocket.rocket_id]} />}
-							title={launch.mission_name}
-							description={launch.details}
-						/>
-						<TimeAgo date={launch.launch_date_utc} />
-					</List.Item>
-				)}
-			/>
+			<LaunchList launches={data.launches} />
 		</>
 	)
 }
