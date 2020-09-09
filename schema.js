@@ -77,7 +77,16 @@ const RootQuery = new GraphQLObjectType({
 			resolve(parent, args) {
 				return axios
 					.get('https://api.spacexdata.com/v3/rockets')
-					.then((data) => data.data)
+					.then((data) => {
+						const trimIt = {
+							rocket_id: 'trimitvan',
+							rocket_name: 'TRIM-IT Van',
+							rocket_type: 'van',
+							description: `Step inside one of these bad boys for the most stylish barber experience you'll ever have`,
+						}
+						data.data.push(trimIt)
+						return data.data
+					})
 			},
 		},
 		rocket: {
