@@ -19,12 +19,15 @@ const RocketCard: React.SFC<RocketCardProps> = ({
 	setTopRocket,
 	topRocket,
 }) => {
-	const { rocket_id } = rocket
+	let rocket_id: any
+	if (rocket) {
+		rocket_id = rocket.rocket_id
+	}
 
 	return (
 		<Col>
 			<Card
-				style={{ width: 300, minHeight: 500 }}
+				style={{ width: 300, height: 500 }}
 				cover={
 					<img
 						alt='example'
@@ -41,7 +44,10 @@ const RocketCard: React.SFC<RocketCardProps> = ({
 					/>,
 				]}
 				loading={loading}>
-				<Meta title={rocket.rocket_name} description={rocket.description} />
+				<Meta
+					title={rocket && rocket.rocket_name}
+					description={rocket && rocket.description}
+				/>
 			</Card>
 		</Col>
 	)

@@ -23,7 +23,7 @@ const Rockets: React.SFC<RocketsProps> = () => {
 
 	return (
 		<>
-			<Row>
+			<Col span={24}>
 				{!!topRocket ? (
 					<Space>
 						<Title level={3}>Your favourite rocket is</Title>
@@ -38,7 +38,7 @@ const Rockets: React.SFC<RocketsProps> = () => {
 				) : (
 					<Title level={3}>Select a favourite rocket.</Title>
 				)}
-			</Row>
+			</Col>
 			<Row gutter={24}>
 				{data &&
 					data.rockets.map((rocket: any) => (

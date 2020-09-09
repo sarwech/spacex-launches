@@ -7,4 +7,6 @@ export const rocketImages: { [key: string]: any } = {
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Falcon_Heavy_Demo_Mission_%2839337245145%29.jpg/1024px-Falcon_Heavy_Demo_Mission_%2839337245145%29.jpg',
 	starship:
 		'https://cdn.vox-cdn.com/thumbor/DXIt5G04c_cis7mfNGpND7EAhb4=/0x0:2040x1360/1820x1213/filters:focal(1006x475:1332x801):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/65393906/pacalin_190928_3690_0005.0.0.jpg',
+	trimitvan:
+		'https://media.gettyimages.com/photos/customized-van-of-mobile-barbershop-trimit-run-by-fulltime-barber-picture-id1146798350?s=2048x2048',
 }
