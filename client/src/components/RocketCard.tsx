@@ -24,8 +24,15 @@ const RocketCard: React.SFC<RocketCardProps> = ({
 	return (
 		<Col>
 			<Card
-				style={{ width: 300 }}
-				cover={<img alt='example' src={rocketImages[rocket_id]} width={200} />}
+				style={{ width: 300, minHeight: 500 }}
+				cover={
+					<img
+						alt='example'
+						src={rocketImages[rocket_id]}
+						height={200}
+						style={{ objectFit: 'contain' }}
+					/>
+				}
 				actions={[
 					<StarOutlined
 						key='favourite'

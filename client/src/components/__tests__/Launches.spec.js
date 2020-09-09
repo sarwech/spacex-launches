@@ -1,10 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import App from './App'
+import Launches from '../Launches.tsx'
 
-describe('App', () => {
+describe('Launches', () => {
 	it('should render correctly', () => {
-		const component = shallow(<App />)
+		const component = shallow(<Launches />)
 
 		expect(component).toMatchSnapshot()
 	})
